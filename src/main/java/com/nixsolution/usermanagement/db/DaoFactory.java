@@ -33,7 +33,7 @@ public static synchronized DaoFactory getInstance() {
 	}
 	return instance;	
 	}
-	public ConnectionFactory getConnectionFactory(){
+	public ConnectionFactoryImpl getConnectionFactory(){
 		return new ConnectionFactoryImpl (properties);
 	}
 	public abstract UserDAO getUserDao();
