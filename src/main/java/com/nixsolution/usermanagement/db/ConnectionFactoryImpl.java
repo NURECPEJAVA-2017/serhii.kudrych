@@ -1,25 +1,29 @@
 package com.nixsolution.usermanagement.db;
 
-import java.util.Properties;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConnectionFactoryImpl implements ConnectionFactory {
-	private String driver;
-	private String url;
-	private String user;
-	private String password;
-	
-	public ConnectionFactoryImpl (Properties properties) {
-		driver = properties.getProperty("connection.driver");
-		url = properties.getProperty("connection.driver");
-		user = properties.getProperty("connection.driver");
-		password = properties.getProperty("connection.driver");
-	}
-	
-	public Connection createConnection() throws DatabaseExeption {
-		
+
+	public Connection createConnection() throws DatabaseException {
+		String url = "jdbc:hsqldb:file:db/usermanagement";
+		String user = "sa";
+		String password = "";
+		String driver = "org.hsqldb.jdbcDriver";
 		try {
 			Class.forName(driver);
-		}catch ()
+		} catch (ClassNotFoundException e) {
+			
+			throw new RuntimeException(e);
+			
+		}
+		
+		try {
+			return DriverManager.getConnection(url, user, password);
+		} catch (SQLException e) {
+			throw new DatabaseException (e);
+		}
 	}
-	
+
 }
